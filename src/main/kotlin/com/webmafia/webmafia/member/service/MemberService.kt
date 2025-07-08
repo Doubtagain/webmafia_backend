@@ -6,10 +6,12 @@ import com.webmafia.webmafia.common.exception.InvalidInputException
 import com.webmafia.webmafia.common.status.ROLE
 import com.webmafia.webmafia.member.dto.LoginDto
 import com.webmafia.webmafia.member.dto.MemberDtoRequest
+import com.webmafia.webmafia.member.dto.MemberDtoResponse
 import com.webmafia.webmafia.member.entity.Member
 import com.webmafia.webmafia.member.entity.MemberRole
 import com.webmafia.webmafia.member.repository.MemberRepository
 import com.webmafia.webmafia.member.repository.MemberRoleRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder
@@ -57,5 +59,22 @@ class MemberService(
         val authentication = authenticationManagerBuilder.`object`.authenticate(authenticationToken)
 
         return jwtTokenProvider.createToken(authentication)
+    }
+
+    /**
+     * Search my Info
+     */
+    fun searchMyInfo(id: Long): Member {
+        val member = memberRepository.findByIdOrNull(id) ?: throw InvalidInputException("id", "Not (${id}) User Found")
+        return member
+    }
+
+    /**
+     * Edit My Info
+     */
+    fun saveMyInfo(memberDtoRequest: MemberDtoRequest): String {
+        val member: Member = memberDtoRequest.toEntity()
+        memberRepository.save(member)
+        return "Edit Complete"
     }
 }

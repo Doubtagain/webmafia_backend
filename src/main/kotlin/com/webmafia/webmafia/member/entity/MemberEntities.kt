@@ -2,6 +2,7 @@ package com.webmafia.webmafia.member.entity
 
 import jakarta.persistence.*
 import com.webmafia.webmafia.common.status.ROLE
+import com.webmafia.webmafia.member.dto.MemberDtoResponse
 
 @Entity
 @Table(
@@ -29,6 +30,9 @@ class Member (
 ) {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     val memberRole: List<MemberRole>? = null
+
+    fun toDto(): MemberDtoResponse =
+        MemberDtoResponse(id!!, loginId, password, name, nickName)
 }
 
 @Entity

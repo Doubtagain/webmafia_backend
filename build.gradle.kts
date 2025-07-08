@@ -35,6 +35,7 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
     implementation("org.bouncycastle:bcprov-jdk15on:1.70")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.0")
 }
 
 kotlin {

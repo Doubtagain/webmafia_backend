@@ -8,3 +8,7 @@ enum class ResultCode (val msg: String) {
 enum class ROLE {
     MEMBER, ADMIN
 }
+
+enum class MafiaROLE {
+    CIV, MAFIA
+}
